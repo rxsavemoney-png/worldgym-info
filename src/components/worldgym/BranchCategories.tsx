@@ -21,8 +21,7 @@ function stickyCellBg(id: string, highlighted: boolean) {
 function CompareTableDesktop() {
   return (
     <div className="relative">
-      <SymbolLegend />
-      <p className="mb-3 mt-8 text-center text-xs font-light text-zinc-500">
+      <p className="mb-3 text-center text-xs font-light text-zinc-500">
         ※ 支援橫向滑動查看完整館別
       </p>
 
@@ -120,11 +119,10 @@ export function BranchCategories() {
           <SymbolLegend />
         </div>
 
-        <div className="relative mt-8">
-          <BranchCompareMobile />
-
-          <div className="hidden overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md md:block md:p-1">
-            <div className="p-5">
+        <div className="relative mt-8 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md">
+          <div className="p-4 sm:p-5">
+            <BranchCompareMobile />
+            <div className="hidden md:block">
               <CompareTableDesktop />
             </div>
           </div>
