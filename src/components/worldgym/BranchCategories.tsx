@@ -20,9 +20,10 @@ function stickyCellBg(id: string, highlighted: boolean) {
 
 function CompareTableDesktop() {
   return (
-    <div className="relative hidden md:block">
-      <p className="mb-3 text-center text-xs font-light text-zinc-500">
-        ※ 支援橫向滑動查看完整館別 ○ ✕
+    <div className="relative">
+      <SymbolLegend />
+      <p className="mb-3 mt-8 text-center text-xs font-light text-zinc-500">
+        ※ 支援橫向滑動查看完整館別
       </p>
 
       <div className="relative">
@@ -115,14 +116,15 @@ export function BranchCategories() {
           </p>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 hidden md:block">
           <SymbolLegend />
         </div>
 
         <div className="relative mt-8">
-          <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md md:p-1">
-            <div className="p-4 md:p-5">
-              <BranchCompareMobile />
+          <BranchCompareMobile />
+
+          <div className="hidden overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md md:block md:p-1">
+            <div className="p-5">
               <CompareTableDesktop />
             </div>
           </div>

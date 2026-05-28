@@ -60,6 +60,18 @@ export const facilityCompareColumns = [
   { key: "smallGroup" as const, label: "小班團課" },
 ];
 
+/** 手機版直立清單顯示用標籤 */
+export const facilityCompareMobileLabels: Record<
+  (typeof facilityCompareColumns)[number]["key"],
+  string
+> = {
+  strengthCardio: "重訓 / 有氧",
+  groupCardio: "有氧團課",
+  spa: "SPA / 三溫暖",
+  pool: "游泳池",
+  smallGroup: "小班專屬團課",
+};
+
 export const gymFacilityCompare = [
   {
     id: "elite",
@@ -80,7 +92,7 @@ export const gymFacilityCompare = [
     strengthCardio: { type: "yes" } satisfies FacilityStatus,
     groupCardio: { type: "yes" } satisfies FacilityStatus,
     spa: { type: "yes" } satisfies FacilityStatus,
-    pool: { type: "partial", note: "依分店條件" } satisfies FacilityStatus,
+    pool: { type: "yes" } satisfies FacilityStatus,
     smallGroup: { type: "no" } satisfies FacilityStatus,
   },
   {

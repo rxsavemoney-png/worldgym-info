@@ -1,83 +1,67 @@
-"use client";
-
-import { useState } from "react";
 import {
   facilityCompareColumns,
+  facilityCompareMobileLabels,
   gymFacilityCompare,
 } from "@/lib/worldgym";
-import { FacilitySymbol } from "@/components/worldgym/FacilitySymbol";
+import {
+  CompareStatusText,
+  SymbolLegend,
+} from "@/components/worldgym/FacilitySymbol";
 
-const TAB_GYMS = gymFacilityCompare.map((gym) => ({
-  id: gym.id,
-  label:
-    gym.id === "fitness"
-      ? "一般館"
-      : gym.name === "FITZONE"
-        ? "FITZONE"
-        : gym.name,
-}));
+function displayGymTitle(name: string, id: string) {
+  if (id === "fitness") return "一般館";
+  return name.replace(" / Fitness", "");
+}
+
+function GymVerticalCard({
+  gym,
+}: {
+  gym: (typeof gymFacilityCompare)[number];
+}) {
+  return (
+    <article className="bg-[#FBFBFA] px-5 py-7 sm:px-6">
+      <header>
+        <h3 className="text-xl font-bold tracking-tight text-zinc-900">
+          {displayGymTitle(gym.name, gym.id)}
+        </h3>
+        <span className="mt-2 inline-block rounded border border-zinc-300 px-2 py-0.5 text-xs font-normal text-zinc-500">
+          {gym.tier}
+        </span>
+      </header>
+
+      <ul className="mt-6 divide-y divide-zinc-100">
+        {facilityCompareColumns.map((col) => (
+          <li
+            key={col.key}
+            className="flex items-start justify-between gap-6 py-3.5 first:pt-0"
+          >
+            <span className="shrink-0 pt-0.5 text-sm text-zinc-500">
+              {facilityCompareMobileLabels[col.key]}
+            </span>
+            <div className="max-w-[58%] shrink-0">
+              <CompareStatusText
+                value={gym[col.key]}
+                align="end"
+                theme="light"
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
 
 export function BranchCompareMobile() {
-  const [activeId, setActiveId] = useState(TAB_GYMS[0]?.id ?? "elite");
-  const activeGym = gymFacilityCompare.find((g) => g.id === activeId);
-
-  if (!activeGym) return null;
-
   return (
-    <div className="md:hidden">
-      <div className="-mx-4 overflow-x-auto scrollbar-none px-4 sm:-mx-6 sm:px-6">
-        <div
-          className="flex min-w-max gap-2 pb-1"
-          role="tablist"
-          aria-label="選擇館別"
-        >
-          {TAB_GYMS.map((tab) => {
-            const selected = tab.id === activeId;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                onClick={() => setActiveId(tab.id)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                  selected
-                    ? "border-zinc-300 bg-zinc-100 text-zinc-900"
-                    : "border-zinc-700 bg-transparent text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
+    <div className="block md:hidden">
+      <SymbolLegend theme="light" />
+
+      <div className="mt-8 flex flex-col gap-8">
+        {gymFacilityCompare.map((gym) => (
+          <GymVerticalCard key={gym.id} gym={gym} />
+        ))}
       </div>
-
-      <div
-        role="tabpanel"
-        className="mt-5 rounded-xl bg-zinc-900/60 px-5 py-5 sm:px-6"
-      >
-        <div className="mb-4 border-b border-zinc-800/80 pb-4">
-          <p className="text-lg font-semibold text-white">{activeGym.name}</p>
-          <p className="mt-1 text-xs text-zinc-500">{activeGym.tier}</p>
-        </div>
-
-        <ul className="space-y-0">
-          {facilityCompareColumns.map((col) => (
-            <li
-              key={col.key}
-              className="flex items-center justify-between gap-4 border-b border-zinc-800/50 py-3.5 last:border-b-0"
-            >
-              <span className="shrink-0 text-sm text-zinc-400">{col.label}</span>
-              <FacilitySymbol value={activeGym[col.key]} />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <p className="mt-3 text-center text-xs font-light text-zinc-500">
-        ※ 點選標籤切換館別，查看完整設備 ○ ✕
-      </p>
     </div>
   );
 }
