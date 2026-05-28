@@ -12,3 +12,4 @@ npm-debug.log*
 !.yarn/releases
 next-env.d.ts
 *.tsbuildinfo
+.vercel

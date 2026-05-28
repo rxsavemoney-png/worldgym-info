@@ -3,6 +3,7 @@ import {
   facilityCompareColumns,
   gymFacilityCompare,
 } from "@/lib/worldgym";
+import { BranchCompareMobile } from "@/components/worldgym/BranchCompareMobile";
 import { FacilitySymbol, SymbolLegend } from "@/components/worldgym/FacilitySymbol";
 
 const HIGHLIGHT_ROW_IDS = new Set(["sport", "fitness"]);
@@ -13,8 +14,92 @@ function rowHighlightClass(id: string) {
 }
 
 function stickyCellBg(id: string, highlighted: boolean) {
-  if (highlighted) return "bg-red-950/40 lg:bg-red-950/25";
-  return "bg-zinc-900/95 lg:bg-transparent";
+  if (highlighted) return "bg-red-950/40 md:bg-red-950/25";
+  return "bg-zinc-900/95 md:bg-transparent";
+}
+
+function CompareTableDesktop() {
+  return (
+    <div className="relative hidden md:block">
+      <p className="mb-3 text-center text-xs font-light text-zinc-500">
+        ※ 支援橫向滑動查看完整館別 ○ ✕
+      </p>
+
+      <div className="relative">
+        <div className="w-full overflow-x-auto scrollbar-none">
+          <table className="w-max min-w-full border-collapse text-sm">
+            <caption className="sr-only">
+              World Gym 五大館別設備符號對比表
+            </caption>
+            <thead>
+              <tr className="border-b border-zinc-800/90">
+                <th
+                  scope="col"
+                  className="sticky left-0 z-20 min-w-[100px] border-r border-zinc-800/80 bg-zinc-900 px-3 py-4 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 sm:min-w-[110px] sm:px-4"
+                >
+                  館別名稱
+                </th>
+                {facilityCompareColumns.map((col) => (
+                  <th
+                    key={col.key}
+                    scope="col"
+                    className="min-w-[120px] whitespace-nowrap px-3 py-4 text-center text-xs font-bold uppercase tracking-wider text-zinc-400"
+                  >
+                    {col.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {gymFacilityCompare.map((gym) => {
+                const highlighted = HIGHLIGHT_ROW_IDS.has(gym.id);
+                return (
+                  <tr
+                    key={gym.id}
+                    className={`border-b border-zinc-800/60 transition-colors hover:bg-zinc-800/30 ${rowHighlightClass(gym.id)}`}
+                  >
+                    <th
+                      scope="row"
+                      className={`sticky left-0 z-10 min-w-[100px] border-r border-zinc-800/60 px-3 py-5 text-left sm:min-w-[110px] sm:px-4 ${stickyCellBg(gym.id, highlighted)}`}
+                    >
+                      <span className="block font-black text-white">
+                        {gym.name}
+                      </span>
+                      <span
+                        className={`mt-1.5 inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold sm:text-xs ${
+                          highlighted
+                            ? "bg-red-600/20 text-red-400"
+                            : "bg-zinc-800 text-zinc-400"
+                        }`}
+                      >
+                        {gym.tier}
+                        {highlighted && (
+                          <span className="ml-1.5 text-red-300">推薦</span>
+                        )}
+                      </span>
+                    </th>
+                    {facilityCompareColumns.map((col) => (
+                      <td
+                        key={`${gym.id}-${col.key}`}
+                        className="min-w-[120px] whitespace-nowrap px-3 py-5"
+                      >
+                        <FacilitySymbol value={gym[col.key]} />
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          className="pointer-events-none absolute right-0 top-0 z-20 h-full w-8 bg-gradient-to-l from-black to-transparent"
+          aria-hidden
+        />
+      </div>
+    </div>
+  );
 }
 
 export function BranchCategories() {
@@ -35,97 +120,10 @@ export function BranchCategories() {
         </div>
 
         <div className="relative mt-8">
-          <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md">
-            <div className="table-scroll-fade relative overflow-x-auto">
-              <table className="w-full min-w-[56rem] border-collapse text-sm lg:min-w-full">
-                <caption className="sr-only">
-                  World Gym 五大館別設備符號對比表
-                </caption>
-                <thead>
-                  <tr className="border-b border-zinc-800/90 bg-zinc-900/90">
-                    <th
-                      scope="col"
-                      className="sticky left-0 z-20 min-w-[5.5rem] border-r border-zinc-800/80 bg-zinc-900/95 px-3 py-4 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 sm:min-w-[6.5rem] sm:px-4 lg:static lg:min-w-[7.5rem] lg:border-r-0"
-                    >
-                      館別名稱
-                    </th>
-                    {facilityCompareColumns.map((col) => (
-                      <th
-                        key={col.key}
-                        scope="col"
-                        className="min-w-[5.5rem] px-2 py-4 text-center text-xs font-bold uppercase tracking-wider text-zinc-400 sm:min-w-[6rem] sm:px-3"
-                      >
-                        {col.label}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {gymFacilityCompare.map((gym) => {
-                    const highlighted = HIGHLIGHT_ROW_IDS.has(gym.id);
-                    return (
-                      <tr
-                        key={gym.id}
-                        className={`border-b border-zinc-800/60 transition-colors hover:bg-zinc-800/30 ${rowHighlightClass(gym.id)}`}
-                      >
-                        <th
-                          scope="row"
-                          className={`sticky left-0 z-10 border-r border-zinc-800/60 px-3 py-5 text-left sm:px-4 lg:static lg:border-r-0 ${stickyCellBg(gym.id, highlighted)}`}
-                        >
-                          <span className="block font-black text-white">
-                            {gym.name}
-                          </span>
-                          <span
-                            className={`mt-1.5 inline-block rounded-full px-2.5 py-0.5 text-[10px] font-semibold sm:text-xs ${
-                              highlighted
-                                ? "bg-red-600/20 text-red-400"
-                                : "bg-zinc-800 text-zinc-400"
-                            }`}
-                          >
-                            {gym.tier}
-                            {highlighted && (
-                              <span className="ml-1.5 text-red-300">推薦</span>
-                            )}
-                          </span>
-                        </th>
-                        {facilityCompareColumns.map((col) => (
-                          <td
-                            key={`${gym.id}-${col.key}`}
-                            className="px-2 py-5 sm:px-3"
-                          >
-                            <FacilitySymbol value={gym[col.key]} />
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <p className="border-t border-zinc-800/80 px-4 py-3 text-center text-xs text-zinc-500 lg:hidden">
-              表格可左右滑動查看更多館別
-            </p>
-          </div>
-
-          <div
-            className="table-scroll-hint pointer-events-none absolute right-0 top-8 z-30 flex h-[calc(100%-2rem)] w-14 items-center justify-end pr-1 lg:hidden"
-            aria-hidden
-          >
-            <div className="flex h-full w-full items-center justify-center rounded-r-2xl bg-gradient-to-l from-zinc-950/95 via-zinc-950/50 to-transparent">
-              <svg
-                className="h-6 w-6 animate-pulse text-red-500/80"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+          <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 shadow-2xl shadow-black/30 backdrop-blur-md md:p-1">
+            <div className="p-4 md:p-5">
+              <BranchCompareMobile />
+              <CompareTableDesktop />
             </div>
           </div>
         </div>
