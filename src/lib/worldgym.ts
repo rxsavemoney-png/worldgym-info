@@ -2,7 +2,7 @@ export const worldGymConfig = {
   brandName: "World Gym",
   logoSrc: "/worldgym/logo.png",
   tagline: "專屬諮詢網",
-  lineUrl: "https://line.me/ti/p/dHrbRAmKRi",
+  lineUrl: "https://lin.ee/QFwp6N0",
   phone: "0923520145",
   lineId: "@05269abc",
   email: "yushunhuang496@gmail.com",
