@@ -11,7 +11,7 @@ export function Promotions() {
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {promotions.map((item) => (
             <article
               key={item.title}

@@ -26,6 +26,11 @@ export const heroSlides = [
 
 export const promotions = [
   {
+    title: "8月專屬｜跳槽方案",
+    description:
+      "8/31 前出示 BEING 退費證明文件，即享單店免入會費、免手續費，再送 3 個月會籍。",
+  },
+  {
     title: "免入會費",
     description: "限時活動，全方案免收入會費。",
   },
@@ -36,14 +41,6 @@ export const promotions = [
   {
     title: "舊會員回歸",
     description: "回歸會員專屬優惠，重新啟動訓練。",
-  },
-  {
-    title: "國軍專案",
-    description: "現役軍人憑證件享專屬方案。",
-  },
-  {
-    title: "觀光署專案",
-    description: "交通部觀光署員工專屬福利。",
   },
 ] as const;
 
