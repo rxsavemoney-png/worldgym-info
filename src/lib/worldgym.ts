@@ -26,11 +26,6 @@ export const heroSlides = [
 
 export const promotions = [
   {
-    title: "8月專屬｜跳槽方案",
-    description:
-      "8/31 前出示 BEING 退費證明文件，即享單店免入會費、免手續費，再送 3 個月會籍。",
-  },
-  {
     title: "免入會費",
     description: "限時活動，全方案免收入會費。",
   },
