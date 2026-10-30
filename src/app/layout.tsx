@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { worldGymConfig } from "@/lib/worldgym";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${worldGymConfig.brandName} ${worldGymConfig.tagline} | 線上入會・方案諮詢`,
-  description:
-    "World Gym 專屬諮詢網 — 超越極限，重新定義你的體態。線上入會、方案諮詢、LINE 預約參觀，全台據點任你選。",
+  title: "本站已下架",
+  description: "World Gym 諮詢網站已停止服務。",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
@@ -15,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hant" suppressHydrationWarning>
-      <body className="world-gym-site min-h-screen scroll-pt-20 overflow-x-hidden bg-black text-white antialiased">
+      <body className="world-gym-site min-h-screen overflow-x-hidden bg-black text-white antialiased">
         {children}
       </body>
     </html>

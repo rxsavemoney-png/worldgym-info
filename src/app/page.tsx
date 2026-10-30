@@ -1,26 +1,13 @@
-import { Navbar } from "@/components/worldgym/Navbar";
-import { HeroCarousel } from "@/components/worldgym/HeroCarousel";
-import { Promotions } from "@/components/worldgym/Promotions";
-import { CourseCatalog } from "@/components/worldgym/CourseCatalog";
-import { BranchCategories } from "@/components/worldgym/BranchCategories";
-import { Pricing } from "@/components/worldgym/Pricing";
-import { MembershipFlow, WorldGymFooter } from "@/components/worldgym/MembershipFlow";
-import { MobileFAB } from "@/components/worldgym/MobileFAB";
-
 export default function HomePage() {
   return (
-    <>
-      <Navbar />
-      <main className="pb-24 md:pb-0">
-        <HeroCarousel />
-        <Promotions />
-        <CourseCatalog />
-        <BranchCategories />
-        <Pricing />
-        <MembershipFlow />
-      </main>
-      <WorldGymFooter />
-      <MobileFAB />
-    </>
+    <main className="flex min-h-screen items-center justify-center px-6">
+      <div className="max-w-md text-center">
+        <p className="text-sm tracking-widest text-zinc-500">WORLD GYM</p>
+        <h1 className="mt-4 text-3xl font-black text-white">本站已下架</h1>
+        <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+          World Gym 諮詢網站已停止服務，頁面不再提供入會、方案與分店資訊。
+        </p>
+      </div>
+    </main>
   );
 }
